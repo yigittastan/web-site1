@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="icon" href="image/twitter.png">
+    <link rel="stylesheet" href="sing up/sing_up.css">
+    <style>
+        .popup {
+            display: none;
+
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form">
+        <div class="formright">
+            <div class="logo">
+                <img src="image/twitter.png" alt="" style="width: 40px; height: 40px;">
+            </div>
+
+            <h1>Yeni bir deneyime açılın</h1>
+            <h2>X'e Kaydolun</h2>
+            <form method="post" action="">
+
+
+                <div class="input-group">
+                    <label for="ad_soyad">Ad Soyad</label>
+                    <input type="text" name="ad_soyad" id="ad_soyad" placeholder="deneme" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" name="email" id="email" placeholder="deneme@email.com" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="********" required>
+                    <div class="password-eye"></div>
+                </div>
+                <button id="signupBtn" type="button">Sign Up</button>
+            </form>
+            <p class="separator">or sign up with</p>
+            <div class="boption">
+                <a href=""><button><img class="icon" src="image/facebook.png" alt="login1"></button></a>
+                <a href=""><button><img class="icon" src="image/search.png" alt="login2"></button></a>
+                <a href=""><button><img class="icon" src="image/apple.png" alt="login3"></button></a>
+            </div>
+            <p class="account-link">Have an account? <a href="login.html">Sign in</a></p>
+        </div>
+    </div>
+
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h1>İzinler</h1>
+            <p>Kayıt işleminiz sırasında bu kutucuğu işaretlemeniz, size en iyi hizmeti sunabilmemiz için gerekli izni
+                vermeniz anlamına gelmektedir.</p>
+            <input type="checkbox" name="tumcheck" id="tumcheck"> Tümünü Seç Ve Kabul Et<br>
+            <hr>
+            <input type="checkbox" name="checkbox1" id="checkbox1"><a href="">Gizlilik söyleşmesini</a> okudum, anladım
+            ve kabul ediyorum (Zorunlu)<br>
+            <input type="checkbox" name="checkbox2" id="checkbox2"><a href="">Kullanıcı Şartlarını</a> okudum, anladım
+            ve kabul ediyorum (Zorunlu)<br>
+            <input type="checkbox" name="checkbox3" id="checkbox3"><a href="">E Posta Aboneliği</a> Verilerimin üçüncü
+            taraflarla paylaşılmasına izin veriyorum<br>
+            <input type="checkbox" name="checkbox4" id="checkbox4"><a href="">Üçüncü Taraflarla Paylaşım</a> Verilerimin
+            üçüncü taraflarla paylaşılmasına izin veriyorum<br>
+
+            <button id="closePopup">Close</button>
+            <button id="finalSignupBtn" disabled="disabled">Sign Up</button>
+
+        </div>
+    </div>
+
+
+    <script>
+
+        const signupBtn = document.getElementById('signupBtn');
+        const popup = document.getElementById('popup');
+        const checkbox1 = document.getElementById('checkbox1');
+        const checkbox2 = document.getElementById('checkbox2');
+        const tumcheck = document.getElementById('tumcheck');
+        const finalSignupBtn = document.getElementById('finalSignupBtn');
+        const closePopup = document.getElementById('closePopup');
+        const form = document.querySelector('form');
+
+        signupBtn.addEventListener('click', () => {
+            popup.style.display = 'flex';
+        });
+
+        closePopup.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+
+        function updateButtonState() {
+            finalSignupBtn.disabled = !(tumcheck.checked || (checkbox1.checked && checkbox2.checked));
+        }
+
+        checkbox1.addEventListener('change', updateButtonState);
+        checkbox2.addEventListener('change', updateButtonState);
+        tumcheck.addEventListener('change', () => {
+            checkbox1.checked = tumcheck.checked;
+            checkbox2.checked = tumcheck.checked;
+            checkbox3.checked = tumcheck.checked;
+            checkbox4.checked = tumcheck.checked;
+            updateButtonState();
+        });
+
+        finalSignupBtn.addEventListener('click', (event) => {
+            if (!checkbox1.checked || !checkbox2.checked) {
+                event.preventDefault(); // Formun gönderilmesini engelle
+                alert('Please accept the required terms to proceed.');
+            } else {
+                window.location.href = 'a.html'; // Kullanıcıyı a.html sayfasına yönlendir
+            }
+        });
+
+    </script>
+
+
+</body>
+
+</html>
